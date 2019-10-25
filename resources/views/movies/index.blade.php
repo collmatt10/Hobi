@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="text-center">All Movies</h2>
     <ul class="list-group py-3 mb-3">
-        @forelse($movies as $todo)
+        @forelse($movies as $movie)
             <li class="list-group-item my-2">
                 <h5>{{ $movie->title }}</h5>
                 <p>{{ Str::limit($movie->body,10) }}</p>

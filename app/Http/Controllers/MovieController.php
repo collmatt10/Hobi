@@ -1,21 +1,31 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Movie;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
+use App\Movie;
+use Auth;
 class MovieController extends Controller
 {
+
+  public function __construct()
+   {
+       $this->middleware('auth');
+   }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
+
+        $user = Auth::user();
         $movies = Movie::orderBy('created_at', 'desc')->paginate(8);
         return view('movies.index', [
-          'movies' => $movies,
+          'movies' => $movies
         ]);
     }
 
@@ -50,9 +60,10 @@ class MovieController extends Controller
   //First Validate the form data
   $request->validate($rules,$messages);
   //Create a movie = new
+   $movie = new Movie;
   $movie->title = $request->title;
   $movie->body = $request->body;
-   $movie->user_id = Auth::id();
+  //$movie->user_id = Auth::id();
   $movie->save(); // save it to the database.
   //Redirect to a specified route with flash message.
   return redirect()

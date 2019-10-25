@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <h3 class="text-center"movies->title}}</h3>
-    <p>{{$movies->body}}</p>
+  <h3 class="text-center">{{$movie->title}}</h3>
+    <p>{{$movie->body}}</p>
     <br>
-    <a href="{{roumovies.edit',$movies->id)}}" class="btn btn-primary float-left">Update</a>
+    <a href="{{route('movies.edit',$movie->id)}}" class="btn btn-primary float-left">Update</a>
     <a href="#" class="btn btn-danger float-right" data-toggle="modal" data-target="#delete-modal">Delete</a>
     <div class="clearfix"></div>
     <div class="modal fade" id="delete-modal">
@@ -25,7 +25,7 @@
         </div>
         </div>
     </div>
-    <form method="POST" id="delete-form" action="{{route('movies.destroy',$movies->id)}}">
+    <form method="POST" id="delete-form" action="{{route('movies.destroy',$movie->id)}}">
         @csrf
         @method('DELETE')
     </form>

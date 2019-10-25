@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('login');
+    return redirect()->route('movies.index');
 });
 
 Route::get('/movies','MovieController@index')->name('movies.index');
