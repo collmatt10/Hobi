@@ -63,7 +63,7 @@ class MovieController extends Controller
    $movie = new Movie;
   $movie->title = $request->title;
   $movie->body = $request->body;
-  //$movie->user_id = Auth::id();
+  $movie->user_id = Auth::id();
   $movie->save(); // save it to the database.
   //Redirect to a specified route with flash message.
   return redirect()
@@ -140,5 +140,8 @@ class MovieController extends Controller
          return redirect()
          ->route('movie.index')
          ->with('status', 'Deleted the selected Movie!');
+     }
+     public function __construct(){
+       $this->middleware('auth');
      }
 }
