@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Movie;
-class CreateMoviesTable extends Migration
+
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateMoviesTable extends Migration
      */
     public function up()
     {
-        Schema::create('movies', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title')->unique();
-            $table->string('director');
-            $table->string('company');
-            $table->integer('boxoffice');
-            $table->string('runtime');
-            $table->string('body');
+            $table->string('name');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateMoviesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('movies');
+        Schema::dropIfExists('roles');
     }
 }

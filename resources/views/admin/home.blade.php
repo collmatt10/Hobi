@@ -13,9 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    This is the home page !
-                  </br>
-                    You are logged in !
+
+                    You are logged in as an admin! <a href="{{route('admin.movies.index')}}">Movies</a>
                 </div>
             </div>
         </div>

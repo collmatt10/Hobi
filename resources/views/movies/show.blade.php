@@ -1,7 +1,13 @@
 @extends('layouts.app')
 @section('content')
   <h3 class="text-center">{{$movie->title}}</h3>
-    <p>{{$movie->body}}</p>
+    <p>{{$movie->director}}</p>
+      <p>{{$movie->company}}</p>
+        <p>{{$movie->runtime}}</p>
+          <p>{{$movie->boxoffice}}</p>
+            <p>{{$movie->body}}</p>
+
+
     <br>
     <a href="{{route('movies.edit',$movie->id)}}" class="btn btn-primary float-left">Update</a>
     <a href="#" class="btn btn-danger float-right" data-toggle="modal" data-target="#delete-modal">Delete</a>

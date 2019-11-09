@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -13,9 +14,17 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    This is the home page !
+
+                    Welcome !
+                     {{ Auth::user()->name    }}
+                      </br>
+                      Email:    {{ Auth::user()->email   }}
+
                   </br>
-                    You are logged in !
+               You are logged in as a Critic !!
+
+                  </br>
+
                 </div>
             </div>
         </div>

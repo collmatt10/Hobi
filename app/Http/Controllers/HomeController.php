@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Role;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +21,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+      $user = $request->user();
+      $home = 'user.home';
+
+      if ($user->hasRole('admin')) {
+      $home = 'admin.home';
+      }
+      else if ($user->hasRole('critic')) {
+        $home = 'critic.home';
+      }
+      else {
+        $home = 'user.home';
+      }
+        return redirect()->route($home);
     }
 }

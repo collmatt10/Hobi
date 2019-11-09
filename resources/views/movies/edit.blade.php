@@ -1,27 +1,68 @@
 @extends('layouts.app')
 @section('content')
-    <h3 class="text-center">Edit Movie</h3>
-    <form action="{{route('movies.update',$movie->id)}}" method="post">
-        @csrf
-        @method('PUT')
-        <div class="form-group">
-            <label for="titlMovie Title</label>
-            <input type="text" name="title" id="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" value="{{ old('title') ? : $movie->title }}" placeholder="Enter Title">
-            @if($errors->has('title')) {{-- <-check if we have a validation error --}}
-                <span class="invalid-feedback">
-                    {{$errors->first('title')}} {{-- <- Display the First validation error --}}
-                </span>
-            @endif
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="card">
+        <div class="card-header">
+        Edit Movie
         </div>
-        <div class="form-group">
-            <label for="body">Movie Description</label>
-            <textarea name="body" id="body" rows="4" class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}" placeholder="Enter Movie Description">{{ old('body') ? : $movie->body }}</textarea>
-            @if($errors->has('body')) {{-- <-check if we have a validation error --}}
-                <span class="invalid-feedback">
-                    {{$errors->first('body')}} {{-- <- Display the First validation error --}}
-                </span>
-            @endif
+        <div class="card-body">
+          @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+              <li>{{$error}}</li>
+              @endforeach
+            </ul>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
+        @endif
+        <form method="POST" action="{{route('admin.movies.update', $movie->id)}}" >
+        <input type="hidden" name="_method" value="PUT">
+          <input type="hidden" name="_token" value="{{csrf_token()}}">
+          <div class="form-group">
+            <label for ="title">Title </label>
+            <input type="text" class="form-control" id="title" name="title" value="{{old('title', $movie->title)}}"/>
+          </div>
+
+          <div class="form-group">
+            <label for ="director">Director </label>
+            <input type="text" class="form-control" id="director" name="director" value="{{old('director', $movie->director)}}"/>
+          </div>
+
+          <div class="form-group">
+            <label for ="company">Company </label>
+            <input type="text" class="form-control" id="company" name="company" value="{{old('company', $movie->company)}}"/>
+          </div>
+
+          <div class="form-group">
+            <label for ="boxoffice">Box-Office </label>
+            <input type="text" class="form-control" id="boxoffice" name="boxoffice" value="{{old('boxoffice', $movie->boxoffice)}}"/>
+          </div>
+
+          <div class="form-group">
+            <label for ="runtime">Runtime </label>
+            <input type="text" class="form-control" id="runtime" name="runtime" value="{{old('runtime', $movie->runtime)}}"/>
+          </div>
+
+          <div class="form-group"description
+            <label for ="description">Description </label>
+            <input type="text" class="form-control" id="description" name="description" value="{{old('description', $movie->description)}}"/>
+          </div>
+
+          <a href="{{route ('admin.movies.index')}}" class="btn btn-link">Cancel</a>
+          <button type="submit" class="btn btn-primary float-right">Submit</button>
+
+
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</div>
+
 @endsection

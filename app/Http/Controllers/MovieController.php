@@ -51,6 +51,10 @@ class MovieController extends Controller
   //validation rules
   $rules = [
       'title' => 'required|string|unique:movies,title|min:2|max:191',
+      'director'  => 'required|string|min:5|max:1000',
+      'company'  => 'required|string|min:5|max:1000',
+      'boxoffice'  => 'required|string|min:5|max:1000',
+      'runtime'  => 'required|string|min:4|max:1000',
       'body'  => 'required|string|min:5|max:1000',
   ];
   //custom validation error messages
@@ -62,6 +66,10 @@ class MovieController extends Controller
   //Create a movie = new
    $movie = new Movie;
   $movie->title = $request->title;
+  $movie->director = $request->director;
+  $movie->company = $request->company;
+  $movie->boxoffice = $request->boxoffice;
+  $movie->runtime = $request->runtime;
   $movie->body = $request->body;
   $movie->user_id = Auth::id();
   $movie->save(); // save it to the database.
@@ -111,7 +119,11 @@ class MovieController extends Controller
   {
       $rules =[
         'title' => "required|string|unique:movies,title,{$id}|min:min:2|max:191",
-        'body'=> 'required|string|min:5|max:1000'
+        'director'  => 'required|string|min:5|max:1000',
+        'company'  => 'required|string|min:5|max:1000',
+        'boxoffice'  => 'required|string|min:5|max:1000',
+        'runtime'  => 'required|string|min:4|max:1000',
+        'body'  => 'required|string|min:5|max:1000',
       ];
       $messages = [
         'title.unique' => 'Movie title should be unique',
@@ -120,10 +132,14 @@ class MovieController extends Controller
         //update to do
         $movie          = todo::findOrFail($id);
         $movie->title = $request->title;
+        $movie->director = $request->director;
+        $movie->company = $request->company;
+        $movie->boxoffice = $request->boxoffice;
+        $movie->runtime = $request->runtime;
         $movie->body = $request->body;
         $movie->save(); //can be used for both creating and updating
         return redirect()
-            ->route('moviess.show',$id)
+            ->route('movies.show',$id)
             ->with('status','Updated the selected Movie!');
   }
 
@@ -138,10 +154,8 @@ class MovieController extends Controller
          $movie = Movie::findOrFail($id);
          $movie->delete();
          return redirect()
-         ->route('movie.index')
+         ->route('movies.index')
          ->with('status', 'Deleted the selected Movie!');
      }
-     public function __construct(){
-       $this->middleware('auth');
-     }
+
 }
