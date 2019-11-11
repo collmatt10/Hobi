@@ -33,7 +33,7 @@ class HomeController extends Controller
         $home = 'critic.home';
       }
       else {
-        $home = 'user.home';
+        $home = 'welcome';
       }
         return redirect()->route($home);
     }

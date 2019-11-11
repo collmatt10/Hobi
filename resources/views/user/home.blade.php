@@ -14,8 +14,11 @@
                         </div>
                     @endif
 
-                    normal user !
-
+                    You are logged in as an ordinary user!
+                      </br>
+                      Hi     {{ Auth::user()->name    }}
+                      </br>
+                      Email:    {{ Auth::user()->email   }} ! 
                 </div>
             </div>
         </div>

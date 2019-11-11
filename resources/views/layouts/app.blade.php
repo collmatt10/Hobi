@@ -1,39 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{asset('css/app.css')}}"> {{-- <- bootstrap css --}}
-    <title>@yield('title','Web Applications Framework')</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    {{-- That's how you write a comment in blade --}}
+    <div id="app">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+          <div class="container">
+              <a class="navbar-brand" href="{{ url('/') }}">
+                  {{ config('app.name', 'Laravel') }}
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <!-- Left Side Of Navbar -->
+                  <ul class="navbar-nav mr-auto">
+                      <li class="nav-item">
+                      </li>
+                  </ul>
+                  <!-- Right Side Of Navbar -->
+                  <ul class="navbar-nav ml-auto">
+                         @auth
+                             <li class="nav-item">
+                                 <a href="{{ route('movies.index') }}" class="nav-link">Movies</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('movies.create') }}" class="nav-link">New Movie</a>
+                             </li>
+                             <li class="nav-item dropdown">
+                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                   <img src="{{asset('storage/images/'.Auth::user()->image)}}" class+"rounded-circle mr-1" height="30px" width="30px"/>
+                                     {{ Auth::user()->name }}
+                                      <span class="caret"></span>
+                                 </a>
+                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                     <a class="dropdown-item" href="{{route('profile.index')}}"> Profile </a>
+                                     <a class="dropdown-item" href="{{ route('home') }}">
+                                         Dashboard
+                                     </a>
+                                     <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                         Logout
+                                     </a>
+                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                         @csrf
+                                     </form>
+                                 </div>
+                             </li>
+                         @else
 
-    @include('inc.navbar')
-    @if(session('status')) {{-- <- If session key exists --}}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{session('status')}} {{-- <- Display the session value --}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+                             <li class="nav-item">
+                                 <a href="{{ route('login') }}" class="nav-link">Login</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="{{ route('register') }}" class="nav-link">Register</a>
+                             </li>
+                         @endauth
+                     </ul>
+                 </div>
+             </div>
+         </nav>
+         <main class="container mt-4">
+                @yield('content')
+            </main>
     </div>
-@endif
-
-    <main class="container mt-4">
-        @yield('content')
-    </main>
-    @include('inc.footer')
-    <script src="{{asset('js/app.js')}}"></script> {{-- <- bootstrap js --}}
-
-<script>
-    //close the alert after 3 seconds.
-    $(document).ready(function(){
-       setTimeout(function() {
-          $(".alert").alert('close');
-       }, 3000);
-    });
-</script>
-
 </body>
 </html>

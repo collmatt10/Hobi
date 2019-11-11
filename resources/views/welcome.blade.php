@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Matts Med Center</title>
+        <title>Hobi</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -12,7 +12,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #65ABDE;
+                background-color: #000000;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
@@ -74,7 +74,9 @@
                       <div class="card-header">Welcome To Hobi</div>
 
                       <div class="card-body">
-                          Browse our selection or create an account to leave user reviews !
+                          Browse our selection of media or create an account to leave user reviews !
+</br>
+                          If you are a professional critic, please contact out admins
 
 
                         <br/>
